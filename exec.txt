@@ -1,0 +1,1 @@
+g++ -c main.cpp pages/menu.cpp pages/credits.cpp pages/howto.cpp pages/pause.cpp levels/level.cpp pages/levelSelect.cpp levels/l1.cpp class/Ball.cpp class/LevelData.cpp class/Brick.cpp && g++ main.o menu.o credits.o howto.o level.o l1.o pause.o Ball.o LevelData.o Brick.o levelSelect.o -o app -lsfml-graphics -lsfml-window -lsfml-system && ./app
