@@ -1,8 +1,10 @@
 #include<SFML/Graphics.hpp>
+#include <cstdlib>
 #include<iostream>
 #include<cmath>
 #include<unistd.h>
 #include"../class/CustomClasses.h"
+#include"../pages/pages.h"
 
 int level(sf::RenderWindow* window, sf::Font normFont, LevelData* level){
   int windowWidth = window->getSize().x, windowHeight = window->getSize().y;
@@ -82,15 +84,23 @@ int level(sf::RenderWindow* window, sf::Font normFont, LevelData* level){
 
         // Bouncepad collision
         auto ballBoundingBox = balls->at(i).getGlobalBounds();
-        if(ballBoundingBox.intersects(bouncepad->getGlobalBounds())){
-          if(speedY > 0){
-            float xDiff = ballPos.x + ballRadius - bouncepadPosition.x - (bouncepad->getSize().x / 2);
-            speedY *= -1;
-            balls->at(i).angle = atan2(speedY, speedX) * 180 / M_PI;
+        if(speedY > 0 && ballBoundingBox.intersects(bouncepad->getGlobalBounds())){
+          float ballMid = ballPos.x + ballRadius,
+            bpadMid = bouncepadPosition.x + bouncepad->getSize().x / 2;
+          int xDiff = fabs(ballMid - bpadMid);
+
+          speedY *= -1;
+          balls->at(i).angle = atan2(speedY, speedX) * 180 / M_PI;
+
+          if(ballMid > bpadMid){
             balls->at(i).angle += xDiff / (bouncepad->getSize().x / 2) * 20;
-            speedX = balls->at(i).speed * cos(balls->at(i).angle * M_PI / 180);
-            speedY = balls->at(i).speed * sin(balls->at(i).angle * M_PI / 180);
           }
+          else{
+            balls->at(i).angle -= xDiff / (bouncepad->getSize().x / 2) * 20;
+          }
+
+          speedX = balls->at(i).speed * cos(balls->at(i).angle * M_PI / 180);
+          speedY = balls->at(i).speed * sin(balls->at(i).angle * M_PI / 180);
         }
 
         // Side wall collision

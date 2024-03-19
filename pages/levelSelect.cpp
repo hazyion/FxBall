@@ -38,6 +38,7 @@ int levelSelect(sf::RenderWindow* window, sf::Font normFont){
       if(event.type == sf::Event::KeyPressed){
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left)){
           selectedLevel -= 1;
+          selectedLevel += levelCount;
           selectedLevel %= levelCount;
         }
 
@@ -47,7 +48,7 @@ int levelSelect(sf::RenderWindow* window, sf::Font normFont){
         }
 
         else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)){
-          return 100 + selectedLevel;
+          return 101 + selectedLevel;
         }
 
         else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)){

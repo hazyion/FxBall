@@ -10,6 +10,7 @@ int howto(sf::RenderWindow* window, sf::Font normFont){
     "The objective of the game is to get rid of all the bricks.",
     "Bounce the ball on the bounce pad to send it back towards the bricks.",
     "Use the left and right arrow keys to move the bouncepad.",
+    "The further away from the center of the bouncepad, the more the ball bounces outward.",
     "If all the balls disappear off the screen, the game ends."
   };
   std::vector<sf::Text> textArr(lines.size(), sf::Text("", normFont, 40));

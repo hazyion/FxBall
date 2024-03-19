@@ -1,5 +1,6 @@
 #include<SFML/Graphics.hpp>
 #include"../class/CustomClasses.h"
+#include"../pages/pages.h"
 
 LevelData l1(int windowWidth, int windowHeight){
   std::vector<Brick> bricks;
@@ -39,14 +40,14 @@ LevelData l1(int windowWidth, int windowHeight){
   // Bouncepad
   int bouncepadWidth = 210, bouncepadHeight = 20;
   sf::RectangleShape bouncepad(sf::Vector2f(bouncepadWidth, bouncepadHeight));
-  sf::Vector2f bouncepadPosition((float)windowWidth / 1.5, (float)windowHeight * 0.8);
+  sf::Vector2f bouncepadPosition((float)windowWidth / 1.6, (float)windowHeight * 0.8);
   bouncepad.setPosition(bouncepadPosition);
   bouncepad.setFillColor(sf::Color::Cyan);
 
   // Balls
   float ballRadius = 13.f;
   std::vector<Ball> balls = {Ball(ballRadius)};
-  balls[0].setFillColor(sf::Color::Yellow);
+  balls[0].setFillColor(sf::Color::Magenta);
   balls[0].setPosition(800, 400);
 
   return LevelData(bricks, balls, bouncepad, brickWidth, brickHeight, ballRadius);

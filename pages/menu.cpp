@@ -169,10 +169,15 @@ void menu(sf::RenderWindow* window, sf::Font logoFont, sf::Font normFont){
       default:{
         int levelNo = gameState - 100;
         switch(levelNo){
-          case 0:
+          case 1:
             if(prevState == 1){
               lData = l1(windowWidth, windowHeight);
             } 
+            break;
+          case 2:
+            if(prevState == 1){
+              lData = l2(windowWidth, windowHeight);
+            }
             break;
         }
         ret = level(window, normFont, &lData);
