@@ -5,7 +5,7 @@
 
 int main(){
   int windowWidth = 1800, windowHeight = 900;
-  sf::RenderWindow window(sf::VideoMode(windowWidth, windowHeight), "DxBall");
+  sf::RenderWindow window(sf::VideoMode(windowWidth, windowHeight), "FxBall");
 
   sf::Font normFont, logoFont;
   if(!normFont.loadFromFile("assets/b2bsporty.otf")){

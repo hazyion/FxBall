@@ -49,14 +49,14 @@ void menu(sf::RenderWindow* window, sf::Font logoFont, sf::Font normFont){
 
   logoText.setFont(logoFont);
   logoText.setCharacterSize(75);
-  logoText.setString("DXBall");
+  logoText.setString("FXBall");
   logoText.setOrigin(logoText.getLocalBounds().width / 2, logoText.getLocalBounds().height / 2);
   logoText.setPosition((float)windowWidth / 2, 150);
   logoText.setFillColor(sf::Color::Red);
 
   logoTextbg.setFont(logoFont);
   logoTextbg.setCharacterSize(75);
-  logoTextbg.setString("DXBall");
+  logoTextbg.setString("FXBall");
   logoTextbg.setOrigin(logoText.getLocalBounds().width / 2, logoText.getLocalBounds().height / 2);
   logoTextbg.setPosition((float)windowWidth / 2 + 4, 150 + 4);
   logoTextbg.setFillColor(sf::Color::Yellow);

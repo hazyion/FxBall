@@ -25,13 +25,13 @@ int pause(sf::RenderWindow* window, sf::Font logoFont, sf::Font normFont){
 
   logoText.setFont(logoFont);
   logoText.setCharacterSize(60);
-  logoText.setString("DXBall");
+  logoText.setString("FXBall");
   logoText.setPosition((float)windowWidth / 8, (float)initPad / 2);
   logoText.setFillColor(sf::Color::Red);
 
   logoTextbg.setFont(logoFont);
   logoTextbg.setCharacterSize(60);
-  logoTextbg.setString("DXBall");
+  logoTextbg.setString("FXBall");
   logoTextbg.setPosition((float)windowWidth / 8 + 4, (float)initPad / 2 + 4);
   logoTextbg.setFillColor(sf::Color::Yellow);
 
