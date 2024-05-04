@@ -38,12 +38,10 @@ LevelData l2(int windowWidth, int windowHeight){
   sf::RectangleShape bouncepad(sf::Vector2f(bouncepadWidth, bouncepadHeight));
   sf::Vector2f bouncepadPosition((float)windowWidth / 2.2, (float)windowHeight * 0.8);
   bouncepad.setPosition(bouncepadPosition);
-  bouncepad.setFillColor(sf::Color::Cyan);
 
   // Balls
-  float ballRadius = 13.f;
+  float ballRadius = 16.f;
   std::vector<Ball> balls = {Ball(ballRadius)};
-  balls[0].setFillColor(sf::Color::Magenta);
   balls[0].setPosition(550, 400);
 
   return LevelData(bricks, balls, bouncepad, brickWidth, brickHeight, ballRadius);

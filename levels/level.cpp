@@ -24,6 +24,33 @@ int level(sf::RenderWindow* window, sf::Font normFont, LevelData* level){
   enterText.setOrigin(enterText.getLocalBounds().width / 2, enterText.getLocalBounds().height / 2);
   enterText.setPosition((float)windowWidth / 2, (float)windowHeight / 2 + 60);
 
+  sf::Texture brickTexture;
+  if(!brickTexture.loadFromFile("assets/brick.png")){
+    std::cout<<"Error loading texture"<<std::endl;
+    return -1;
+  }
+
+  sf::Texture ballTexture;
+  if(!ballTexture.loadFromFile("assets/ball.png")){
+    std::cout<<"Error loading texture"<<std::endl;
+    return -1;
+  }
+
+  for(int i = 0; i < level->bricks.size(); i++){
+    level->bricks[i].setTexture(&brickTexture);
+  }
+
+  for(int i = 0; i < level->balls.size(); i++){
+    level->balls[i].setTexture(&ballTexture);
+  }
+
+  sf::Texture bouncepadTexture;
+  if(!bouncepadTexture.loadFromFile("assets/bouncepad.png")){
+    std::cout<<"Error loading texture"<<std::endl;
+    return -1;
+  }
+  level->bouncepad.setTexture(&bouncepadTexture);
+
   bool gameEnd = false;
 
   while(window->isOpen()){
