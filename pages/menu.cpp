@@ -1,4 +1,5 @@
 #include<SFML/Graphics.hpp>
+#include<SFML/Audio.hpp>
 #include<iostream>
 #include<string>
 #include<stack>
@@ -27,6 +28,16 @@ void menu(sf::RenderWindow* window, sf::Font logoFont, sf::Font normFont){
 
   std::stack<int> gameStateStack;
   gameStateStack.push(-1);
+
+  sf::SoundBuffer menuSelectBuffer;
+  if(!menuSelectBuffer.loadFromFile("assets/menuselect.wav")){
+    std::cout<<"Error loading audio"<<std::endl;
+    return;
+  }
+
+  sf::Sound menuSelect;
+  menuSelect.setBuffer(menuSelectBuffer);
+  menuSelect.setVolume(60);
 
   sf::Text logoText, logoTextbg;
   std::vector<std::string> lines = {
@@ -78,11 +89,13 @@ void menu(sf::RenderWindow* window, sf::Font logoFont, sf::Font normFont){
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down)){
           selection += 1;
           selection %= textArr.size();
+          menuSelect.play();
         }
 
         else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up)){
           selection -= 1;
           selection %= textArr.size();
+          menuSelect.play();
         }
 
         else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)){

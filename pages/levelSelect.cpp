@@ -1,4 +1,5 @@
 #include<SFML/Graphics.hpp>
+#include<SFML/Audio.hpp>
 #include<unistd.h>
 #include<iostream>
 #include"pages.h"
@@ -9,6 +10,16 @@ int levelSelect(sf::RenderWindow* window, sf::Font normFont){
   sf::RectangleShape levelbg(sf::Vector2f(120, 120));
   levelbg.setOrigin(levelbg.getSize().x / 2, levelbg.getSize().y / 2);
   levelbg.setFillColor(sf::Color::Yellow);
+
+  sf::SoundBuffer menuSelectBuffer;
+  if(!menuSelectBuffer.loadFromFile("assets/menuselect.wav")){
+    std::cout<<"Error loading audio"<<std::endl;
+    return -1;
+  }
+
+  sf::Sound menuSelect;
+  menuSelect.setBuffer(menuSelectBuffer);
+  menuSelect.setVolume(60);
 
   sf::Text escText("Press ESC to go back", normFont, 25); 
   escText.setPosition(80, 80);
@@ -40,11 +51,13 @@ int levelSelect(sf::RenderWindow* window, sf::Font normFont){
           selectedLevel -= 1;
           selectedLevel += levelCount;
           selectedLevel %= levelCount;
+          menuSelect.play();
         }
 
         else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right)){
           selectedLevel += 1;
           selectedLevel %= levelCount;
+          menuSelect.play();
         }
 
         else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)){

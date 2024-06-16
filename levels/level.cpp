@@ -1,5 +1,7 @@
+#include <SFML/Audio/SoundBuffer.hpp>
 #include<SFML/Graphics.hpp>
-#include <cstdlib>
+#include<SFML/Audio.hpp>
+#include<cstdlib>
 #include<iostream>
 #include<cmath>
 #include<unistd.h>
@@ -23,6 +25,20 @@ int level(sf::RenderWindow* window, sf::Font normFont, LevelData* level){
   sf::Text endText("", normFont, 70), enterText("Press ENTER to Continue", normFont, 25);
   enterText.setOrigin(enterText.getLocalBounds().width / 2, enterText.getLocalBounds().height / 2);
   enterText.setPosition((float)windowWidth / 2, (float)windowHeight / 2 + 60);
+
+  sf::SoundBuffer brickbopBuffer, passBuffer, failBuffer;
+  if(!brickbopBuffer.loadFromFile("assets/brickbop.wav") ||
+    !passBuffer.loadFromFile("assets/pass.wav") ||
+    !failBuffer.loadFromFile("assets/fail.wav")){
+    std::cout<<"Error loading sounds"<<std::endl;
+    return -1;
+  }
+
+  sf::Sound brickbop, pass, fail;
+  brickbop.setBuffer(brickbopBuffer);
+  pass.setBuffer(passBuffer);
+  fail.setBuffer(failBuffer);
+  brickbop.setVolume(60);
 
   sf::Texture brickTexture;
   if(!brickTexture.loadFromFile("assets/brick.png")){
@@ -142,6 +158,7 @@ int level(sf::RenderWindow* window, sf::Font normFont, LevelData* level){
         }
 
         // Brick collision
+        bool hit = false;
         for(auto bIter = bricks->begin(); bIter != bricks->end(); bIter++){
           Brick brick = *bIter;
           if(ballBoundingBox.intersects(brick.getGlobalBounds())){
@@ -154,6 +171,7 @@ int level(sf::RenderWindow* window, sf::Font normFont, LevelData* level){
               speedX *= -1;
               bIter->setDifficulty(brick.getDifficulty() - 1);
               std::iter_swap(bIter, bricks->end() - 1);
+              hit = true;
             }
             
             // Right
@@ -164,6 +182,7 @@ int level(sf::RenderWindow* window, sf::Font normFont, LevelData* level){
               speedX *= -1;
               bIter->setDifficulty(brick.getDifficulty() - 1);
               std::iter_swap(bIter, bricks->end() - 1);
+              hit = true;
             }
 
             // Top
@@ -174,6 +193,7 @@ int level(sf::RenderWindow* window, sf::Font normFont, LevelData* level){
               speedY *= -1;
               bIter->setDifficulty(brick.getDifficulty() - 1);
               std::iter_swap(bIter, bricks->end() - 1);
+              hit = true;
             }
 
             // Bottom
@@ -184,11 +204,15 @@ int level(sf::RenderWindow* window, sf::Font normFont, LevelData* level){
               speedY *= -1;
               bIter->setDifficulty(brick.getDifficulty() - 1);
               std::iter_swap(bIter, bricks->end() - 1);
+              hit = true;
             }
 
             break;
           }
         }
+        if(hit)
+          brickbop.play();
+
         if(! (--bricks->end())->getDifficulty()){
           bricks->pop_back();
         }
@@ -215,6 +239,7 @@ int level(sf::RenderWindow* window, sf::Font normFont, LevelData* level){
         endText.setOrigin(endText.getLocalBounds().width / 2, endText.getLocalBounds().height / 2);
         endText.setPosition((float)windowWidth / 2, (float)windowHeight / 2 - 60);
         gameEnd = true;
+        fail.play();
       }
 
       else if(!bricks->size()){
@@ -223,6 +248,7 @@ int level(sf::RenderWindow* window, sf::Font normFont, LevelData* level){
         endText.setOrigin(endText.getLocalBounds().width / 2, endText.getLocalBounds().height / 2);
         endText.setPosition((float)windowWidth / 2, (float)windowHeight / 2 - 60);
         gameEnd = true;
+        pass.play();
       }
     }
 

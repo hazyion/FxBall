@@ -1,4 +1,6 @@
 #include<SFML/Graphics.hpp>
+#include<SFML/Audio.hpp>
+#include<iostream>
 #include"pages.h"
 
 int pause(sf::RenderWindow* window, sf::Font logoFont, sf::Font normFont){
@@ -12,6 +14,16 @@ int pause(sf::RenderWindow* window, sf::Font logoFont, sf::Font normFont){
     "Quit Game"
   };
   std::vector<sf::Text> textArr(lines.size(), sf::Text("", normFont, 45)), selectorArr(lines.size(), sf::Text(">", normFont, 45));
+
+  sf::SoundBuffer menuSelectBuffer;
+  if(!menuSelectBuffer.loadFromFile("assets/menuselect.wav")){
+    std::cout<<"Error loading audio"<<std::endl;
+    return -1;
+  }
+
+  sf::Sound menuSelect;
+  menuSelect.setBuffer(menuSelectBuffer);
+  menuSelect.setVolume(60);
 
   int initPad = windowHeight * 2 / 5, lineGap = (windowHeight - initPad) / (lines.size() + 1);
 
@@ -50,11 +62,13 @@ int pause(sf::RenderWindow* window, sf::Font logoFont, sf::Font normFont){
           if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down)){
             pauseSelection += 1;
             pauseSelection %= textArr.size();
+            menuSelect.play();
           }
 
           else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up)){
             pauseSelection -= 1;
             pauseSelection %= textArr.size();
+            menuSelect.play();
           }
 
           else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)){

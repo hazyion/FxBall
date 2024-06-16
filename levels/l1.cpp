@@ -6,14 +6,15 @@ LevelData l1(int windowWidth, int windowHeight){
   std::vector<Brick> bricks;
 
   // Brick Layout Generation
+  int highBrickCount = 11, lowBrickCount = 8;
   float brickWidth = (float)windowWidth / 25, brickHeight = (float)windowHeight / 22;
-  float totalGapX = (float)windowWidth - 15 * brickWidth;
-  float gapX = 30;
-  float offsetX = (totalGapX - gapX * (15 - 1)) / 2;
-  float gapY = 0.75 * brickHeight;
+  float totalGapX = (float)windowWidth - highBrickCount * brickWidth;
+  float gapX = 50;
+  float offsetX = (totalGapX - gapX * (highBrickCount - 1)) / 2;
+  float gapY = 1.5 * brickHeight;
   float curX = offsetX;
 
-  for(int i = 0; i < 15; i++){
+  for(int i = 0; i < highBrickCount; i++){
     Brick newBrick(sf::Vector2f(brickWidth, brickHeight), 2);
     newBrick.setPosition(curX, 50);
     bricks.push_back(newBrick); 
@@ -25,11 +26,11 @@ LevelData l1(int windowWidth, int windowHeight){
     curX += brickWidth + gapX;
   }
 
-  totalGapX = (float)windowWidth - 12 * brickWidth;
-  offsetX = (totalGapX - gapX * (12 - 1)) / 2;
+  totalGapX = (float)windowWidth - lowBrickCount * brickWidth;
+  offsetX = (totalGapX - gapX * (lowBrickCount - 1)) / 2;
   curX = offsetX;
 
-  for(int i = 0; i < 12; i++){
+  for(int i = 0; i < lowBrickCount; i++){
     Brick newBrick(sf::Vector2f(brickWidth, brickHeight), 1);
     newBrick.setPosition(curX, 50 + brickHeight + gapY);
     bricks.push_back(newBrick); 
